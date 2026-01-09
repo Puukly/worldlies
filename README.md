@@ -1,4 +1,4 @@
-# World Lies Interface - Minecraft 1.21.1 Plugin
+# World Lies Interface - Minecraft 1.21.11 Plugin
 
 A comprehensive Minecraft plugin where the world dynamically reacts to player behavior through hidden gauges and world states.
 
