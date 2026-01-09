@@ -1,0 +1,308 @@
+# World Lies Interface Configuration
+# Paper 1.21.11
+
+# System Settings
+auto_start: false
+save_interval_minutes: 10
+
+# Gauges Configuration
+gauges:
+  mining_pressure:
+    ema_alpha: 0.1
+    max_per_player_per_day: 5000
+    thresholds:
+      abundant: 2000
+      harsh: 500
+      chaotic: 8000
+
+  conflict_pressure:
+    ema_alpha: 0.08
+    max_per_player_per_day: 1000
+    thresholds:
+      chaotic: 500
+      harsh: 50
+      abundant: 200
+
+  death_pressure:
+    ema_alpha: 0.12
+    max_per_player_per_day: 100
+    thresholds:
+      harsh: 50
+      chaotic: 150
+      corrupted: 250
+
+  settlement_pressure:
+    ema_alpha: 0.05
+    max_per_player_per_day: 3000
+    thresholds:
+      abundant: 1500
+      harsh: 800
+      balanced: 1000
+
+  disturbance:
+    ema_alpha: 0.15
+    max_per_player_per_day: 200
+    thresholds:
+      chaotic: 100
+      corrupted: 150
+
+  exploration_pressure:
+    ema_alpha: 0.07
+    max_per_player_per_day: 2000
+    thresholds:
+      abundant: 1000
+      balanced: 500
+
+  magic_pressure:
+    ema_alpha: 0.10
+    max_per_player_per_day: 800
+    thresholds:
+      chaotic: 400
+      corrupted: 600
+
+  trade_pressure:
+    ema_alpha: 0.08
+    max_per_player_per_day: 1000
+    thresholds:
+      abundant: 500
+      balanced: 300
+
+  construction_pressure:
+    ema_alpha: 0.06
+    max_per_player_per_day: 2500
+    thresholds:
+      abundant: 1200
+      balanced: 800
+
+  farming_pressure:
+    ema_alpha: 0.09
+    max_per_player_per_day: 3000
+    thresholds:
+      abundant: 1500
+      balanced: 800
+
+  redstone_pressure:
+    ema_alpha: 0.11
+    max_per_player_per_day: 1500
+    thresholds:
+      chaotic: 700
+      balanced: 400
+
+  population_pressure:
+    ema_alpha: 0.04
+    max_per_player_per_day: 100
+    thresholds:
+      abundant: 20
+      harsh: 5
+      balanced: 10
+
+  ritual_pressure:
+    ema_alpha: 0.13
+    max_per_player_per_day: 50
+    thresholds:
+      corrupted: 25
+      chaotic: 15
+
+# World States Configuration
+states:
+  abundant:
+    entry_cooldown_seconds: 86400  # 24 hours
+    duration_seconds: 259200  # 3 days
+    score_weights:
+      mining_pressure: 0.8
+      farming_pressure: 0.6
+      settlement_pressure: 0.5
+      exploration_pressure: 0.4
+    effects:
+      ore_multiplier: 1.6
+      crop_growth_multiplier: 1.4
+      mob_strength_multiplier: 1.15
+      mob_loot_multiplier: 1.2
+      regeneration_daylight: true
+      haste_surface: true
+      speed_inhabited: true
+      blast_vulnerability: 0.1
+
+  harsh:
+    entry_cooldown_seconds: 43200  # 12 hours
+    duration_seconds: 172800  # 2 days
+    score_weights:
+      settlement_pressure: 0.7
+      mining_pressure: -0.5
+      trade_pressure: 0.4
+      death_pressure: 0.3
+    effects:
+      ore_multiplier: 0.5
+      hunger_multiplier: 1.5
+      food_healing_multiplier: 0.7
+      resistance_no_helmet: true
+      mining_fatigue_underground: true
+      fall_damage_multiplier: 1.25
+      villager_trade_discount: 0.15
+
+  chaotic:
+    entry_cooldown_seconds: 86400  # 24 hours
+    duration_seconds: 259200  # 3 days
+    score_weights:
+      conflict_pressure: 0.7
+      disturbance: 0.6
+      redstone_pressure: 0.5
+      magic_pressure: 0.5
+    effects:
+      random_effects_enabled: true
+      random_effect_interval_seconds: 60
+      lucky_surge_enabled: true
+      random_teleport_chance: 0.05
+      enchant_unreliability_chance: 0.1
+      gravity_pockets_enabled: true
+      random_events_per_day: 3
+
+  balanced:
+    entry_cooldown_seconds: 0
+    duration_seconds: -1  # Infinite
+    score_weights:
+      mining_pressure: 0.1
+      conflict_pressure: 0.1
+      settlement_pressure: 0.1
+      exploration_pressure: 0.1
+    effects:
+      cooperative_xp_bonus: 1.1
+      stability_bonus: true
+
+  corrupted:
+    entry_cooldown_seconds: 172800  # 2 days
+    duration_seconds: 259200  # 3 days
+    score_weights:
+      ritual_pressure: 0.8
+      magic_pressure: 0.6
+      disturbance: 0.4
+      death_pressure: 0.3
+    effects:
+      shadow_mark_enabled: true
+      curse_resonance_enabled: true
+      nether_bleed_enabled: true
+      end_bleed_enabled: true
+      corruption_altars: true
+      shadow_xp_bonus: 1.5
+
+# State Evaluation
+state_evaluation:
+  interval_seconds: 300  # 5 minutes
+  hysteresis_margin: 0.15
+  cooldown_enforcement: true
+
+# Death Penalty System
+death_penalties:
+  enabled: true
+  inventory_drop: true
+  xp_loss_percent: 70
+  respawn_debuff:
+    enabled: true
+    duration_seconds: 180
+    slowness_level: 2
+    mining_fatigue_level: 2
+    weakness_level: 1
+    hunger_level: 1
+
+  stacking:
+    enabled: true
+    rolling_window_minutes: 90
+    max_health_reduction_per_stack: 2
+    debuff_duration_increase_per_stack: 30
+    xp_loss_increase_per_stack: 5
+
+  exhaustion:
+    enabled: true
+    ban_duration_minutes: 60
+    ban_message: "Your body can no longer withstand the world's rejection. Rest, then return."
+
+  new_player_protection:
+    first_deaths_reduced: 2
+    reduction_factor: 0.5
+
+  visual_warnings:
+    enabled: true
+    caution_threshold: 0.5
+    danger_threshold: 0.75
+    critical_threshold: 0.9
+
+# Concordance Keystone
+keystone:
+  enabled: true
+  name: "§6§lConcordance Keystone"
+  lore:
+    - "§7A fragment of the world's will"
+    - "§7Glows with ancient power"
+    - "§c§oThe bearer is marked"
+  glow_effect: true
+  containment_radius: 25
+  claim_countdown_seconds: 10
+  pickup_grace_seconds: 2
+  activation:
+    consent_required_percent: 0.4
+    xp_cost: 30
+    field_uses: 1
+    field_cooldown_days: 30
+    min_players_online: 3
+
+# Concordance Event
+concordance:
+  enabled: true
+  trigger_state_changes: 10
+  alignment_period_hours: 48
+  trial_duration_minutes: 60
+  success_rewards:
+    keystone: true
+    spire_generation: true
+    permanent_state_shift: true
+
+# Visual Settings
+visuals:
+  use_bossbar: true
+  bossbar_title_template: "§e§lWorld State: %state%"
+  use_actionbar: true
+  use_particles: true
+  particle_density: 1.0
+
+# Broadcasting
+broadcasts:
+  system_start: true
+  system_stop: false
+  system_pause: false
+  system_resume: false
+  state_change: true
+  keystone_transfer: true
+
+# Logging
+logging:
+  debug_mode: false
+  record_history_days: 30
+  log_gauge_changes: false
+  log_death_penalties: true
+  log_keystone_events: true
+
+# Messages
+messages:
+  system:
+    start: "§eThe world awakens. Its balance is now watching."
+    stop: "§7The world returns to silence."
+    pause: "§7The world grows still..."
+    resume: "§eThe world stirs once more."
+
+  state_transitions:
+    abundant: "§6A distant hum deep in the earth shivers."
+    harsh: "§7The winds taste of dust and restraint."
+    chaotic: "§5Shadows fold like paper; the ground does not keep its promises."
+    balanced: "§aThe world finds equilibrium."
+    corrupted: "§4Darkness bleeds through the cracks of reality."
+
+  death_warnings:
+    caution: "§eWarning: Scar Stacks %current%/%max% — Recover in %time%"
+    danger: "§cDanger: Scar Stacks %current%/%max% — Recover in %time%"
+    critical: "§4§lCritical: NEXT DEATH = Exhaustion"
+
+  keystone:
+    contested: "§c§lKeystone Contested — Players Nearby: %count%"
+    claiming: "§e§lClaiming Keystone — %seconds%s"
+    claimed: "§a§l%player% has claimed the Concordance Keystone!"
+    transfer: "§6The light chooses another bearer."
