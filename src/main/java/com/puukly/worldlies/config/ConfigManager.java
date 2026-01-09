@@ -1,6 +1,6 @@
 package com.puukly.worldlies.config;
 
-import com.worldlies.plugin.WorldLiesInterface;
+import com.puukly.worldlies.WorldLiesInterface;
 import org.bukkit.configuration.file.FileConfiguration;
 
 public class ConfigManager {

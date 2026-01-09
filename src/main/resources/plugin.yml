@@ -1,20 +1,12 @@
-main: ${PACKAGE}.${NAME}
-name: ${NAME}
+main: com.puukly.worldlies.WorldLiesInterface
+name: WorldLies
 version: "${VERSION}"
 api-version: "1.21.11"
-author: AUTHOR
-description: DESCRIPTION
+author: Puukly
+description: The World is lying
 commands:
-  ex:
-    description: Base command for EXAMPLE
-    usage: "For a list of commands, type /ex help"
-    aliases: example
-permissions:
-  example.test:
-    description: DESCRIPTION
-    default: true
-  example.*:
-    description: Grants all other permissions
-    default: false
-    children:
-      example.test: true
+  wli:
+    description: Base command for WorldLies
+    usage: "/wli help"
+    aliases:
+      - worldlies

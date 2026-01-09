@@ -20,7 +20,7 @@ public class AbundantEffects implements EffectApplier {
         effectTask = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 // Regenerative Warmth - Regen I in daylight
-                if (player.getWorld().isDayTime() && !player.getLocation().getBlock().getLightFromSky() < 15) {
+                if (player.getWorld().isDayTime() && player.getLocation().getBlock().getLightFromSky() < 15) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 0, true, false));
                 }
 

@@ -91,7 +91,7 @@ public class KeystoneManager {
 
     private void createContainmentZone(Location location) {
         int radius = plugin.getConfig().getInt("keystone.containment_radius", 25);
-        int countdown = plugin.getConfig().getInt("keystone.claim_countdown_seconds", 10);
+        int countdown = plugin.getConfig().getInt("keystone.claim_countdown_seconds", 200);
 
         ContainmentZone zone = new ContainmentZone(plugin, location, radius, countdown);
         containmentZones.put(location, zone);

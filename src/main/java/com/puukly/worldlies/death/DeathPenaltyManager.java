@@ -114,10 +114,10 @@ public class DeathPenaltyManager {
         }
 
         double totalReduction = reductionPerStack * stacks;
-        double baseHealth = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue();
+        double baseHealth = Objects.requireNonNull(player.getAttribute(Attribute.MAX_HEALTH)).getBaseValue();
         double newMaxHealth = Math.max(2.0, baseHealth - totalReduction); // Minimum 1 heart
 
-        Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(newMaxHealth);
+        Objects.requireNonNull(player.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(newMaxHealth);
     }
 
     private void checkExhaustion(Player player, int stacks) {
@@ -125,7 +125,7 @@ public class DeathPenaltyManager {
             return;
         }
 
-        double currentMaxHealth = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue();
+        double currentMaxHealth = Objects.requireNonNull(player.getAttribute(Attribute.MAX_HEALTH)).getBaseValue();
 
         if (currentMaxHealth <= 2.0) { // 1 heart or less
             // Ban player temporarily
@@ -143,7 +143,7 @@ public class DeathPenaltyManager {
             }
 
             // Reset max health
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20.0);
+            Objects.requireNonNull(player.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(20.0);
 
             player.kickPlayer(banMessage);
 
@@ -180,10 +180,10 @@ public class DeathPenaltyManager {
     private void restoreMaxHealth(Player player, int currentStacks) {
         double reductionPerStack = plugin.getConfig().getDouble("death_penalties.stacking.max_health_reduction_per_stack", 2.0);
         double expectedMaxHealth = 20.0 - (reductionPerStack * currentStacks);
-        double currentMaxHealth = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue();
+        double currentMaxHealth = Objects.requireNonNull(player.getAttribute(Attribute.MAX_HEALTH)).getBaseValue();
 
         if (currentMaxHealth < expectedMaxHealth) {
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(Math.min(20.0, expectedMaxHealth));
+            Objects.requireNonNull(player.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(Math.min(20.0, expectedMaxHealth));
         }
     }
 
@@ -270,7 +270,7 @@ public class DeathPenaltyManager {
 
         Player player = Bukkit.getPlayer(uuid);
         if (player != null) {
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20.0);
+            Objects.requireNonNull(player.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(20.0);
         }
     }
 
@@ -278,7 +278,7 @@ public class DeathPenaltyManager {
         deathData.clear();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).setBaseValue(20.0);
+            Objects.requireNonNull(player.getAttribute(Attribute.MAX_HEALTH)).setBaseValue(20.0);
         }
     }
 
